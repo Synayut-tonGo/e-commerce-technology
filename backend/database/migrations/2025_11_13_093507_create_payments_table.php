@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->id('payment_id');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->enum('payment_method', ['scan' , 'cash']);
+            $table->decimal('amount', 8, 2);
+            $table->enum('status',['pending' , 'success' , 'failed'])->default('pending');
+            $table->string('transaction_ref')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }

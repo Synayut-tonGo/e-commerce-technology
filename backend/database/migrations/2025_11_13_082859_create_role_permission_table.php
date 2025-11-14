@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('role_permission_id');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->foreignId('permission_id')->constrained('permissions')->onDelete('cascade');
-            $table->foreignId('granded_by')->nullable()->constrained('users');
+            $table->foreignId('granted_by')->nullable()->constrained('users');
             $table->timestamps();
 
             $table->unique(['role_id' , 'permission_id']); // prevent dupicate
