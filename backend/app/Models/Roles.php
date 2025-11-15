@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Roles extends Model
 {
@@ -34,7 +35,7 @@ class Roles extends Model
             $permission = Permissions::where('slug' , $permission)->firstOrFail();
         }
         return $this->permission()->syncWithoutDetaching([
-            $permission->permission_id => ['granted_by' => auth()->id() ?? null]
+            $permission->permission_id => ['granted_by' => Auth::id()]
         ]);
     }
 

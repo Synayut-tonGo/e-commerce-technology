@@ -18,6 +18,7 @@ class Users extends Authenticatable
      *
      * @var list<string>
      */
+     /** @var \App\Models\User $user */
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';
