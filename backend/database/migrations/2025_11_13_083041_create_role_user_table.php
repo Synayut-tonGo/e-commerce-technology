@@ -17,8 +17,8 @@ return new class extends Migration
             //constrained = references('user_id')->on('users') it gonna go to find foreignID for us
             //if your primary key on other table not match your foreign key = contrained('roles'this is table , your primary key column)
             // you can use this constrained() when on other table have default id
-            $table->foreignId('role_id')->constrained()->onDelete('cascade');
-            $table->foreignId('assigned_by')->nullable()->constrained('users');
+            $table->foreignId('role_id')->references('role_id')->on('roles')->onDelete('cascade');
+            $table->foreignId('assigned_by')->nullable()->references('user_id')->on('users')->onDelete('cascade');
             $table->timestamps();
 
             $table->unique(['user_id' , 'role_id']); // prevent the user add duplicate role_user ex: Yut - admin cannot add this one more

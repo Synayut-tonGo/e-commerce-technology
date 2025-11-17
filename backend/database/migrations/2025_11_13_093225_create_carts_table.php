@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id('cart_id');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->enum('status' , ['active' , 'converted' , 'abandon'])->default('active');
             $table->timestamps();
         });

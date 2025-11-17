@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class Users extends Authenticatable
+class Users extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -19,9 +20,18 @@ class Users extends Authenticatable
      * @var list<string>
      */
      /** @var \App\Models\User $user */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
 
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
     protected $table = 'users';
     protected $primaryKey = 'user_id';
+    
     protected $fillable = [
         'first_name',
         'last_name',
@@ -30,6 +40,7 @@ class Users extends Authenticatable
         'age',
         'gender',
         'email',
+        'image',
         'password',
         'confirmation_password',
     ];
@@ -41,12 +52,12 @@ class Users extends Authenticatable
     ];
 
     public function carts () {           // foreign key , local key
-        return $this->hasOne(Carts::class, 'user_id' , 'user_id');
+        return $this->hasMany(Carts::class, 'user_id' , 'user_id');
     }
 
 
     public function orders () {
-        return $this->hasOne(Orders::class , 'user_id' , 'user_id');
+        return $this->hasMany(Orders::class , 'user_id' , 'user_id');
     }
 
     public function roles () {

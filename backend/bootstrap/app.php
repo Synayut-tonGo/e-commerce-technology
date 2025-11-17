@@ -18,6 +18,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => CheckRole::class,
             'permission' => CheckPermission::class,
         ]);
+        // Exclude routes from CSRF
+        $middleware->validateCsrfTokens(except: [
+            'register',
+            'login',
+            'logout',
+            'refresh',
+            'me',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

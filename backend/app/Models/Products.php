@@ -20,7 +20,6 @@ class Products extends Model
         'price',
         'stock_quantity',
         'is_preorder_available',
-        'image',
         'status',
     ];
 
@@ -35,6 +34,10 @@ class Products extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
+    }
+
+    public function image () {
+        return $this->hasMany(ProductImage::class , 'product_id' , 'product_id');
     }
 
 }
